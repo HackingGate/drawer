@@ -1,6 +1,6 @@
 {
   "name": "@hackinggate/react-navigation-drawer",
-  "version": "2.3.4-workaround.2",
+  "version": "2.3.4-workaround.3",
   "description": "Drawer navigator component for React Navigation",
   "main": "lib/commonjs/index.js",
   "react-native": "lib/module/index.js",

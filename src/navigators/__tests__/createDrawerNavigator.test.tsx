@@ -119,7 +119,6 @@ it('renders successfully', () => {
       <View
         accessibilityViewIsModal={false}
         onLayout={[Function]}
-        pointerEvents="auto"
         removeClippedSubviews={false}
         style={
           Object {

@@ -494,7 +494,6 @@ export default class Drawer extends React.PureComponent<Props> {
       renderDrawerContent,
       renderSceneContent,
       gestureHandlerProps,
-      drawerEnabled,
     } = this.props;
 
     const right = drawerPosition === 'right';
@@ -594,7 +593,6 @@ export default class Drawer extends React.PureComponent<Props> {
                 },
                 drawerStyle as any,
               ]}
-              pointerEvents={drawerEnabled ? 'auto' : 'none'}
             >
               {renderDrawerContent({ progress: this.progress })}
             </Animated.View>
