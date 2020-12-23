@@ -57,6 +57,7 @@ const DefaultDrawerConfig: NavigationDrawerConfig = {
   drawerType: 'front',
   hideStatusBar: false,
   statusBarAnimation: 'slide',
+  drawerEnabled: true,
 };
 
 const DrawerNavigator = (

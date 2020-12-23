@@ -92,6 +92,7 @@ type Props = {
   renderDrawerContent: Renderer;
   renderSceneContent: Renderer;
   gestureHandlerProps?: React.ComponentProps<typeof PanGestureHandler>;
+  drawerEnabled: boolean;
 };
 
 export default class Drawer extends React.PureComponent<Props> {
@@ -104,6 +105,7 @@ export default class Drawer extends React.PureComponent<Props> {
     keyboardDismissMode: 'on-drag',
     hideStatusBar: false,
     statusBarAnimation: 'slide',
+    drawerEnabled: true,
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -114,6 +116,7 @@ export default class Drawer extends React.PureComponent<Props> {
       swipeDistanceThreshold,
       swipeVelocityThreshold,
       hideStatusBar,
+      drawerEnabled,
     } = this.props;
 
     if (
@@ -121,7 +124,7 @@ export default class Drawer extends React.PureComponent<Props> {
       typeof this.pendingOpenValue !== 'boolean' ||
       open !== this.pendingOpenValue
     ) {
-      this.toggleDrawer(open);
+      this.toggleDrawer(open && drawerEnabled);
     }
 
     this.pendingOpenValue = undefined;
@@ -491,6 +494,7 @@ export default class Drawer extends React.PureComponent<Props> {
       renderDrawerContent,
       renderSceneContent,
       gestureHandlerProps,
+      drawerEnabled,
     } = this.props;
 
     const right = drawerPosition === 'right';
@@ -528,7 +532,6 @@ export default class Drawer extends React.PureComponent<Props> {
           <Animated.View
             onLayout={this.handleContainerLayout}
             style={styles.main}
-            pointerEvents="none"
           >
             <Animated.View
               style={[
@@ -591,6 +594,7 @@ export default class Drawer extends React.PureComponent<Props> {
                 },
                 drawerStyle as any,
               ]}
+              pointerEvents={drawerEnabled ? 'auto' : 'none'}
             >
               {renderDrawerContent({ progress: this.progress })}
             </Animated.View>
