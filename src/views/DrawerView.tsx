@@ -55,6 +55,7 @@ type Props = {
 type State = {
   loaded: number[];
   drawerWidth: number;
+  drawerEnabled: boolean;
 };
 
 /**
@@ -83,6 +84,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       typeof this.props.navigationConfig.drawerWidth === 'function'
         ? this.props.navigationConfig.drawerWidth()
         : this.props.navigationConfig.drawerWidth,
+    drawerEnabled: this.props.navigationConfig.drawerEnabled ? true : false,
   };
 
   componentDidMount() {
@@ -91,7 +93,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       this.handleDrawerOpen();
     }
 
-    Dimensions.addEventListener('change', this.updateWidth);
+    Dimensions.addEventListener('change', this.updateDrawer);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -108,7 +110,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.updateWidth);
+    Dimensions.removeEventListener('change', this.updateDrawer);
   }
 
   context!: React.ContextType<typeof ThemeContext>;
@@ -142,7 +144,8 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     );
   };
 
-  private updateWidth = () => {
+  private updateDrawer = () => {
+    // Update drawerWidth
     const drawerWidth =
       typeof this.props.navigationConfig.drawerWidth === 'function'
         ? this.props.navigationConfig.drawerWidth()
@@ -150,6 +153,14 @@ export default class DrawerView extends React.PureComponent<Props, State> {
 
     if (this.state.drawerWidth !== drawerWidth) {
       this.setState({ drawerWidth });
+    }
+    // Update drawerEnabled
+    const drawerEnabled =
+      typeof this.props.navigationConfig.drawerEnabled === 'boolean'
+        ? this.props.navigationConfig.drawerEnabled
+        : true;
+    if (this.state.drawerEnabled !== drawerEnabled) {
+      this.setState({ drawerEnabled });
     }
   };
 
@@ -258,7 +269,6 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       hideStatusBar,
       statusBarAnimation,
       gestureHandlerProps,
-      drawerEnabled,
     } = navigationConfig;
 
     const drawerLockMode = this.getLockMode(this.props);
@@ -291,7 +301,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
           statusBarAnimation={statusBarAnimation}
           renderDrawerContent={this.renderNavigationView}
           renderSceneContent={this.renderContent}
-          drawerEnabled={drawerEnabled}
+          drawerEnabled={this.state.drawerEnabled}
         />
       </DrawerGestureContext.Provider>
     );
