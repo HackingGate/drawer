@@ -29,6 +29,7 @@ it('renders successfully', () => {
       onGestureHandlerEvent={[Function]}
       onGestureHandlerStateChange={[Function]}
       onLayout={[Function]}
+      pointerEvents="none"
       style={
         Object {
           "flex": 1,

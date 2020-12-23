@@ -528,6 +528,7 @@ export default class Drawer extends React.PureComponent<Props> {
           <Animated.View
             onLayout={this.handleContainerLayout}
             style={styles.main}
+            pointerEvents="none"
           >
             <Animated.View
               style={[
