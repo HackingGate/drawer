@@ -105,6 +105,7 @@ export default class Drawer extends React.PureComponent<Props> {
     keyboardDismissMode: 'on-drag',
     hideStatusBar: false,
     statusBarAnimation: 'slide',
+    drawerEnabled: true,
   };
 
   componentDidUpdate(prevProps: Props) {
