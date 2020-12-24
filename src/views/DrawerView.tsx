@@ -49,7 +49,7 @@ type Props = {
     unmountInactiveRoutes?: boolean;
     contentOptions?: object;
   };
-  screenProps: unknown;
+  screenProps: any;
 };
 
 type State = {
@@ -260,7 +260,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { navigation, navigationConfig } = this.props;
+    const { navigation, navigationConfig, screenProps } = this.props;
     const {
       drawerType,
       sceneContainerStyle,
@@ -270,6 +270,10 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       statusBarAnimation,
       gestureHandlerProps,
     } = navigationConfig;
+    let drawerEnabled = true;
+    if (screenProps && typeof screenProps.drawerEnabled === 'boolean') {
+      drawerEnabled = screenProps.drawerEnabled;
+    }
 
     const drawerLockMode = this.getLockMode(this.props);
     const drawerBackgroundColor = this.getDrawerBackgroundColor();
@@ -301,7 +305,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
           statusBarAnimation={statusBarAnimation}
           renderDrawerContent={this.renderNavigationView}
           renderSceneContent={this.renderContent}
-          drawerEnabled={this.state.drawerEnabled}
+          drawerEnabled={drawerEnabled}
         />
       </DrawerGestureContext.Provider>
     );
