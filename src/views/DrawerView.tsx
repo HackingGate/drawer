@@ -61,7 +61,7 @@ type State = {
 /**
  * Component that renders the drawer.
  */
-export default class DrawerView extends React.PureComponent<Props, State> {
+export default class DrawerView extends React.Component<Props, State> {
   static contextType = ThemeContext;
   static defaultProps = {
     lazy: true,
@@ -94,6 +94,13 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     }
 
     Dimensions.addEventListener('change', this.updateDrawer);
+  }
+
+  shouldComponentUpdate(_nextProps: Props, nextState: State) {
+    if (nextState.drawerEnabled !== this.state.drawerEnabled) {
+      return false;
+    }
+    return true;
   }
 
   componentDidUpdate(prevProps: Props) {
